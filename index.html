@@ -321,6 +321,17 @@
       line-height: 1.2;
     }
 
+    .reviews-link {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 2px solid var(--green-accent);
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .reviews-link:hover {
+      color: var(--green-accent);
+      border-color: var(--green-dark);
+    }
+
     .section-subtitle {
       font-size: 1.05rem;
       color: var(--text-mid);
@@ -1096,8 +1107,8 @@
   <ul class="nav-links" id="navLinks">
     <li><a href="#about">About</a></li>
     <li><a href="#services">Services</a></li>
-    <li><a href="#gallery">Gallery</a></li>
     <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#gallery">Gallery</a></li>
     <li><a href="https://www.facebook.com/profile.php?id=100093911176473" target="_blank" rel="noopener" class="nav-fb" aria-label="Facebook"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a></li>
     <li><a href="#contact" class="nav-cta">Get a Free Quote</a></li>
   </ul>
@@ -1197,61 +1208,12 @@
   </div>
 </section>
 
-<!-- ═══════════════ GALLERY ═══════════════ -->
-<section id="gallery">
-  <div class="container">
-    <div class="section-header centered">
-      <p class="section-label">Our Work</p>
-      <h2 class="section-title">See the Results</h2>
-      <div class="divider centered"></div>
-      <p class="section-subtitle">A look at some of the work we've done for our customers across Utah Valley.</p>
-    </div>
-    <!-- Before / After Slider -->
-    <div class="ba-wrap">
-      <div class="ba-label-row">
-        <p class="section-label">Before &amp; After — Drag to Compare</p>
-      </div>
-      <div class="ba-slider" id="baSlider">
-        <!-- AFTER image (sits underneath) -->
-        <img src="images/img7.png" alt="After tree trimming" class="ba-img" draggable="false" />
-        <!-- BEFORE image (clipped on top via clip-path) -->
-        <img src="images/img6.png" alt="Before tree trimming" class="ba-img ba-img-before" id="baBeforeImg" draggable="false" />
-        <!-- Divider line + handle -->
-        <div class="ba-divider" id="baDivider"></div>
-        <div class="ba-handle" id="baHandleBtn">&#8596;</div>
-        <!-- Labels -->
-        <span class="ba-tag ba-tag-before">Before</span>
-        <span class="ba-tag ba-tag-after">After</span>
-      </div>
-    </div>
-
-    <!-- Photo Grid -->
-    <div class="gallery-grid">
-      <div class="gallery-item">
-        <img src="images/img1.jpg" alt="Tree removal in progress" />
-      </div>
-      <div class="gallery-item">
-        <img src="images/img4.jpg" alt="Climbing high for tree work" />
-      </div>
-      <div class="gallery-item">
-        <img src="images/img3.jpg" alt="Tree trimming with ladder" />
-      </div>
-      <div class="gallery-item">
-        <img src="images/img2.jpg" alt="Chainsaw tree cutting" />
-      </div>
-      <div class="gallery-item">
-        <img src="images/img5.png" alt="Before and after tree trimming" />
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ═══════════════ REVIEWS ═══════════════ -->
 <section id="reviews">
   <div class="container">
     <div class="section-header centered">
       <p class="section-label">Testimonials</p>
-      <h2 class="section-title">What Our Customers Say</h2>
+      <h2 class="section-title"><a href="https://www.google.com/search?sca_esv=38623c8ca84aacad&rlz=1C1UEAD_enUS1137US1137&sxsrf=ANbL-n6xmCY1LPbc5s1dLepDIK10dvMuqQ:1775578286626&si=AL3DRZEsmMGCryMMFSHJ3StBhOdZ2-6yYkXd_doETEE1OR-qOYS4zIy3MvTfJVRrsDSAoCrwmI7CaihtUIq5XLitKCdtE4IoOrOEIQZXM_iuGctUZX0iHREXZ4BVmPwUGqrpwKyw8T0pPMHaPI9mISBaKrel044sGA%3D%3D&q=Anderson+Tree+Service+Reviews&sa=X&ved=2ahUKEwi-ha7IkNyTAxXXHkQIHYd3CnwQ0bkNegQIMRAF&biw=1536&bih=791&dpr=1.25" target="_blank" rel="noopener noreferrer" class="reviews-link">Real Google Reviews ★★★★★</a></h2>
       <div class="divider centered"></div>
       <p class="section-subtitle">We let our work — and our customers — speak for themselves.</p>
     </div>
@@ -1309,6 +1271,55 @@
         <button class="carousel-btn" id="prevBtn" aria-label="Previous reviews">&#8592;</button>
         <div class="carousel-dots" id="carouselDots"></div>
         <button class="carousel-btn" id="nextBtn" aria-label="Next reviews">&#8594;</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ GALLERY ═══════════════ -->
+<section id="gallery">
+  <div class="container">
+    <div class="section-header centered">
+      <p class="section-label">Our Work</p>
+      <h2 class="section-title">See the Results</h2>
+      <div class="divider centered"></div>
+      <p class="section-subtitle">A look at some of the work we've done for our customers across Utah Valley.</p>
+    </div>
+    <!-- Before / After Slider -->
+    <div class="ba-wrap">
+      <div class="ba-label-row">
+        <p class="section-label">Before &amp; After — Drag to Compare</p>
+      </div>
+      <div class="ba-slider" id="baSlider">
+        <!-- AFTER image (sits underneath) -->
+        <img src="images/img7.png" alt="After tree trimming" class="ba-img" draggable="false" />
+        <!-- BEFORE image (clipped on top via clip-path) -->
+        <img src="images/img6.png" alt="Before tree trimming" class="ba-img ba-img-before" id="baBeforeImg" draggable="false" />
+        <!-- Divider line + handle -->
+        <div class="ba-divider" id="baDivider"></div>
+        <div class="ba-handle" id="baHandleBtn">&#8596;</div>
+        <!-- Labels -->
+        <span class="ba-tag ba-tag-before">Before</span>
+        <span class="ba-tag ba-tag-after">After</span>
+      </div>
+    </div>
+
+    <!-- Photo Grid -->
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="images/img1.jpg" alt="Tree removal in progress" />
+      </div>
+      <div class="gallery-item">
+        <img src="images/img4.jpg" alt="Climbing high for tree work" />
+      </div>
+      <div class="gallery-item">
+        <img src="images/img3.jpg" alt="Tree trimming with ladder" />
+      </div>
+      <div class="gallery-item">
+        <img src="images/img2.jpg" alt="Chainsaw tree cutting" />
+      </div>
+      <div class="gallery-item">
+        <img src="images/img5.png" alt="Before and after tree trimming" />
       </div>
     </div>
   </div>
