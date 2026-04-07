@@ -90,6 +90,25 @@
 
     .nav-links a:hover { color: var(--green-accent); }
 
+    .nav-fb {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: #1877f2;
+      color: var(--white) !important;
+      transition: background 0.2s, transform 0.2s !important;
+      flex-shrink: 0;
+    }
+
+    .nav-fb:hover {
+      background: #0a60d1 !important;
+      color: var(--white) !important;
+      transform: translateY(-2px) !important;
+    }
+
     .nav-cta {
       background: var(--green-accent);
       color: var(--green-dark) !important;
@@ -140,9 +159,9 @@
     .hero-bg {
       position: absolute;
       inset: 0;
-      background-image: url('images/img1.jpg');
+      background-image: url('images/img7.png');
       background-size: cover;
-      background-position: center 30%;
+      background-position: center 40%;
       transform: scale(1.04);
       transition: transform 8s ease-out;
     }
@@ -591,23 +610,19 @@
 
     .gallery-item:hover img { transform: scale(1.05); }
 
-    .gallery-overlay {
+    .ba-badge {
       position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(27,61,12,0.6) 0%, transparent 50%);
-      opacity: 0;
-      transition: opacity 0.3s;
-      display: flex;
-      align-items: flex-end;
-      padding: 20px;
-    }
-
-    .gallery-item:hover .gallery-overlay { opacity: 1; }
-
-    .gallery-overlay span {
+      top: 14px;
+      left: 14px;
+      background: var(--green-dark);
       color: var(--white);
-      font-weight: 500;
-      font-size: 0.9rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 50px;
+      pointer-events: none;
     }
 
     /* ─── REVIEWS ─────────────────────────────────────────── */
@@ -1010,6 +1025,7 @@
     <li><a href="#services">Services</a></li>
     <li><a href="#gallery">Gallery</a></li>
     <li><a href="#reviews">Reviews</a></li>
+    <li><a href="https://www.facebook.com/profile.php?id=100093911176473" target="_blank" rel="noopener" class="nav-fb" aria-label="Facebook"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a></li>
     <li><a href="#contact" class="nav-cta">Get a Free Quote</a></li>
   </ul>
 </nav>
@@ -1120,31 +1136,25 @@
     <div class="gallery-grid">
       <div class="gallery-item">
         <img src="images/img1.jpg" alt="Tree removal in progress" />
-        <div class="gallery-overlay"><span>Tree Removal</span></div>
       </div>
       <div class="gallery-item">
         <img src="images/img4.jpg" alt="Climbing high for tree work" />
-        <div class="gallery-overlay"><span>Expert Climbing</span></div>
       </div>
       <div class="gallery-item">
         <img src="images/img3.jpg" alt="Tree trimming with ladder" />
-        <div class="gallery-overlay"><span>Tree Trimming</span></div>
       </div>
       <div class="gallery-item">
         <img src="images/img2.jpg" alt="Chainsaw tree cutting" />
-        <div class="gallery-overlay"><span>Tree Removal</span></div>
       </div>
       <div class="gallery-item">
         <img src="images/img5.png" alt="Before and after tree trimming" />
-        <div class="gallery-overlay"><span>Before &amp; After</span></div>
+        <div class="ba-badge">Before &amp; After</div>
       </div>
       <div class="gallery-item">
         <img src="images/img6.png" alt="Large tree on residential property" />
-        <div class="gallery-overlay"><span>Tree Care</span></div>
       </div>
       <div class="gallery-item">
         <img src="images/img7.png" alt="Tree work near home" />
-        <div class="gallery-overlay"><span>Residential Service</span></div>
       </div>
     </div>
   </div>
