@@ -625,7 +625,7 @@
     .ba-slider {
       position: relative;
       width: 100%;
-      max-height: 520px;
+      height: 520px;
       border-radius: 14px;
       overflow: hidden;
       box-shadow: 0 8px 32px rgba(0,0,0,0.18);
@@ -634,29 +634,18 @@
       touch-action: pan-y;
     }
 
-    .ba-after-img {
-      display: block;
-      width: 100%;
-      height: 520px;
-      object-fit: cover;
-      object-position: center;
-    }
-
-    .ba-before-layer {
+    .ba-img {
       position: absolute;
-      top: 0; left: 0; bottom: 0;
-      width: 50%;
-      overflow: hidden;
-    }
-
-    .ba-before-img {
-      display: block;
+      inset: 0;
       width: 100%;
-      height: 520px;
+      height: 100%;
       object-fit: cover;
       object-position: center;
-      /* stretch to full slider width so it lines up with the after */
-      min-width: calc(100vw - 48px);
+      display: block;
+    }
+
+    .ba-img-before {
+      clip-path: inset(0 50% 0 0);
     }
 
     .ba-divider {
@@ -1223,13 +1212,11 @@
         <p class="section-label">Before &amp; After — Drag to Compare</p>
       </div>
       <div class="ba-slider" id="baSlider">
-        <!-- AFTER (bottom layer, full width) -->
-        <img src="images/img6.png" alt="After tree trimming" class="ba-after-img" draggable="false" />
-        <!-- BEFORE (top layer, clipped) -->
-        <div class="ba-before-layer" id="baBeforeLayer">
-          <img src="images/img7.png" alt="Before tree trimming" class="ba-before-img" draggable="false" />
-        </div>
-        <!-- Divider + handle -->
+        <!-- AFTER image (sits underneath) -->
+        <img src="images/img7.png" alt="After tree trimming" class="ba-img" draggable="false" />
+        <!-- BEFORE image (clipped on top via clip-path) -->
+        <img src="images/img6.png" alt="Before tree trimming" class="ba-img ba-img-before" id="baBeforeImg" draggable="false" />
+        <!-- Divider line + handle -->
         <div class="ba-divider" id="baDivider"></div>
         <div class="ba-handle" id="baHandleBtn">&#8596;</div>
         <!-- Labels -->
@@ -1547,28 +1534,27 @@
 
   // ── Before / After Slider ──
   (function () {
-    const slider     = document.getElementById('baSlider');
-    const beforeLayer = document.getElementById('baBeforeLayer');
-    const divider    = document.getElementById('baDivider');
-    const handle     = document.getElementById('baHandleBtn');
+    const slider    = document.getElementById('baSlider');
+    const beforeImg = document.getElementById('baBeforeImg');
+    const divider   = document.getElementById('baDivider');
+    const handle    = document.getElementById('baHandleBtn');
     if (!slider) return;
 
     function setPos(x) {
       const rect = slider.getBoundingClientRect();
       let pct = (x - rect.left) / rect.width;
       pct = Math.min(Math.max(pct, 0.02), 0.98);
-      const pctStr = (pct * 100).toFixed(2) + '%';
-      beforeLayer.style.width = pctStr;
-      divider.style.left      = pctStr;
-      handle.style.left       = pctStr;
+      const p = (pct * 100).toFixed(2);
+      const right = (100 - pct * 100).toFixed(2);
+      beforeImg.style.clipPath = `inset(0 ${right}% 0 0)`;
+      divider.style.left = p + '%';
+      handle.style.left  = p + '%';
     }
 
     let dragging = false;
-
-    slider.addEventListener('mousedown', e => { dragging = true; setPos(e.clientX); e.preventDefault(); });
-    window.addEventListener('mousemove', e => { if (dragging) setPos(e.clientX); });
-    window.addEventListener('mouseup',   () => { dragging = false; });
-
+    slider.addEventListener('mousedown',  e => { dragging = true; setPos(e.clientX); e.preventDefault(); });
+    window.addEventListener('mousemove',  e => { if (dragging) setPos(e.clientX); });
+    window.addEventListener('mouseup',    () => { dragging = false; });
     slider.addEventListener('touchstart', e => { dragging = true; setPos(e.touches[0].clientX); }, { passive: true });
     window.addEventListener('touchmove',  e => { if (dragging) setPos(e.touches[0].clientX); }, { passive: true });
     window.addEventListener('touchend',   () => { dragging = false; });
