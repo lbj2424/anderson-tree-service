@@ -595,7 +595,6 @@
     }
 
     .gallery-item:nth-child(1) { grid-column: span 2; }
-    .gallery-item:nth-child(5) { grid-column: span 2; }
 
     .gallery-item img {
       width: 100%;
@@ -605,24 +604,111 @@
       transition: transform 0.4s ease;
     }
 
-    .gallery-item:nth-child(1) img,
-    .gallery-item:nth-child(5) img { height: 340px; }
+    .gallery-item:nth-child(1) img { height: 340px; }
 
     .gallery-item:hover img { transform: scale(1.05); }
 
-    .ba-badge {
+    /* ─── BEFORE / AFTER SLIDER ──────────────────────────── */
+    .ba-wrap {
+      margin-bottom: 48px;
+    }
+
+    .ba-label-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .ba-label-row .section-label { margin: 0; }
+
+    .ba-slider {
+      position: relative;
+      width: 100%;
+      max-height: 520px;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      cursor: ew-resize;
+      user-select: none;
+      touch-action: pan-y;
+    }
+
+    .ba-after-img {
+      display: block;
+      width: 100%;
+      height: 520px;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .ba-before-layer {
       position: absolute;
-      top: 14px;
-      left: 14px;
-      background: var(--green-dark);
-      color: var(--white);
+      top: 0; left: 0; bottom: 0;
+      width: 50%;
+      overflow: hidden;
+    }
+
+    .ba-before-img {
+      display: block;
+      width: 100%;
+      height: 520px;
+      object-fit: cover;
+      object-position: center;
+      /* stretch to full slider width so it lines up with the after */
+      min-width: calc(100vw - 48px);
+    }
+
+    .ba-divider {
+      position: absolute;
+      top: 0; bottom: 0;
+      left: 50%;
+      width: 3px;
+      background: var(--white);
+      transform: translateX(-50%);
+      box-shadow: 0 0 12px rgba(0,0,0,0.35);
+    }
+
+    .ba-handle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--white);
+      box-shadow: 0 2px 16px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: var(--green-dark);
+      font-weight: 700;
+    }
+
+    .ba-tag {
+      position: absolute;
+      bottom: 18px;
       font-size: 0.78rem;
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      padding: 5px 12px;
+      padding: 5px 14px;
       border-radius: 50px;
       pointer-events: none;
+    }
+
+    .ba-tag-before {
+      left: 18px;
+      background: rgba(0,0,0,0.55);
+      color: var(--white);
+    }
+
+    .ba-tag-after {
+      right: 18px;
+      background: rgba(27,61,12,0.75);
+      color: var(--white);
     }
 
     /* ─── REVIEWS ─────────────────────────────────────────── */
@@ -988,8 +1074,7 @@
       .contact-grid { grid-template-columns: 1fr; gap: 40px; }
 
       .gallery-grid { grid-template-columns: 1fr 1fr; }
-      .gallery-item:nth-child(1),
-      .gallery-item:nth-child(5) { grid-column: span 2; }
+      .gallery-item:nth-child(1) { grid-column: span 2; }
 
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
       .footer-brand { grid-column: span 2; }
@@ -1000,8 +1085,7 @@
     @media (max-width: 580px) {
       section { padding: 64px 0; }
       .gallery-grid { grid-template-columns: 1fr; }
-      .gallery-item:nth-child(1),
-      .gallery-item:nth-child(5) { grid-column: span 1; }
+      .gallery-item:nth-child(1) { grid-column: span 1; }
       .footer-grid { grid-template-columns: 1fr; }
       .footer-brand { grid-column: span 1; }
       .footer-bottom { flex-direction: column; text-align: center; }
@@ -1133,6 +1217,28 @@
       <div class="divider centered"></div>
       <p class="section-subtitle">A look at some of the work we've done for our customers across Utah Valley.</p>
     </div>
+    <!-- Before / After Slider -->
+    <div class="ba-wrap">
+      <div class="ba-label-row">
+        <p class="section-label">Before &amp; After — Drag to Compare</p>
+      </div>
+      <div class="ba-slider" id="baSlider">
+        <!-- AFTER (bottom layer, full width) -->
+        <img src="images/img6.png" alt="After tree trimming" class="ba-after-img" draggable="false" />
+        <!-- BEFORE (top layer, clipped) -->
+        <div class="ba-before-layer" id="baBeforeLayer">
+          <img src="images/img7.png" alt="Before tree trimming" class="ba-before-img" draggable="false" />
+        </div>
+        <!-- Divider + handle -->
+        <div class="ba-divider" id="baDivider"></div>
+        <div class="ba-handle" id="baHandleBtn">&#8596;</div>
+        <!-- Labels -->
+        <span class="ba-tag ba-tag-before">Before</span>
+        <span class="ba-tag ba-tag-after">After</span>
+      </div>
+    </div>
+
+    <!-- Photo Grid -->
     <div class="gallery-grid">
       <div class="gallery-item">
         <img src="images/img1.jpg" alt="Tree removal in progress" />
@@ -1148,13 +1254,6 @@
       </div>
       <div class="gallery-item">
         <img src="images/img5.png" alt="Before and after tree trimming" />
-        <div class="ba-badge">Before &amp; After</div>
-      </div>
-      <div class="gallery-item">
-        <img src="images/img6.png" alt="Large tree on residential property" />
-      </div>
-      <div class="gallery-item">
-        <img src="images/img7.png" alt="Tree work near home" />
       </div>
     </div>
   </div>
@@ -1445,6 +1544,35 @@
 
   init();
   window.addEventListener('resize', init);
+
+  // ── Before / After Slider ──
+  (function () {
+    const slider     = document.getElementById('baSlider');
+    const beforeLayer = document.getElementById('baBeforeLayer');
+    const divider    = document.getElementById('baDivider');
+    const handle     = document.getElementById('baHandleBtn');
+    if (!slider) return;
+
+    function setPos(x) {
+      const rect = slider.getBoundingClientRect();
+      let pct = (x - rect.left) / rect.width;
+      pct = Math.min(Math.max(pct, 0.02), 0.98);
+      const pctStr = (pct * 100).toFixed(2) + '%';
+      beforeLayer.style.width = pctStr;
+      divider.style.left      = pctStr;
+      handle.style.left       = pctStr;
+    }
+
+    let dragging = false;
+
+    slider.addEventListener('mousedown', e => { dragging = true; setPos(e.clientX); e.preventDefault(); });
+    window.addEventListener('mousemove', e => { if (dragging) setPos(e.clientX); });
+    window.addEventListener('mouseup',   () => { dragging = false; });
+
+    slider.addEventListener('touchstart', e => { dragging = true; setPos(e.touches[0].clientX); }, { passive: true });
+    window.addEventListener('touchmove',  e => { if (dragging) setPos(e.touches[0].clientX); }, { passive: true });
+    window.addEventListener('touchend',   () => { dragging = false; });
+  })();
 </script>
 
 </body>
