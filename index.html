@@ -60,7 +60,7 @@
     }
 
     .nav-logo img {
-      height: 50px;
+      height: 64px;
       width: auto;
     }
 
@@ -154,9 +154,9 @@
       inset: 0;
       background: linear-gradient(
         to bottom,
-        rgba(10,25,5,0.55) 0%,
-        rgba(10,25,5,0.45) 60%,
-        rgba(10,25,5,0.75) 100%
+        rgba(10,25,5,0.70) 0%,
+        rgba(10,25,5,0.65) 60%,
+        rgba(10,25,5,0.85) 100%
       );
     }
 
@@ -167,20 +167,12 @@
       padding: 0 24px;
     }
 
-    .hero-logo {
-      width: 160px;
-      height: auto;
-      margin-bottom: 24px;
-      filter: drop-shadow(0 4px 16px rgba(0,0,0,0.5));
-      animation: fadeDown 0.9s ease both;
-    }
-
     .hero-content h1 {
       font-size: clamp(2.4rem, 5vw, 4rem);
       color: var(--white);
-      text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+      text-shadow: 0 2px 24px rgba(0,0,0,0.7);
       margin-bottom: 16px;
-      animation: fadeDown 1s 0.15s ease both;
+      animation: fadeDown 1s 0s ease both;
     }
 
     .hero-motto {
@@ -600,9 +592,17 @@
     /* ─── REVIEWS ─────────────────────────────────────────── */
     #reviews { background: var(--white); }
 
-    .reviews-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    .carousel-wrap {
+      position: relative;
+    }
+
+    .carousel-track-outer {
+      overflow: hidden;
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
       gap: 24px;
     }
 
@@ -611,6 +611,8 @@
       border-radius: var(--radius);
       padding: 28px;
       border-left: 4px solid var(--green-accent);
+      flex: 0 0 calc((100% - 48px) / 3);
+      min-width: 0;
       transition: box-shadow 0.3s, transform 0.3s;
     }
 
@@ -638,6 +640,69 @@
       font-weight: 600;
       color: var(--green-dark);
       font-size: 0.9rem;
+    }
+
+    .carousel-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 36px;
+    }
+
+    .carousel-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 2px solid var(--green-dark);
+      background: var(--white);
+      color: var(--green-dark);
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .carousel-btn:hover:not(:disabled) {
+      background: var(--green-dark);
+      color: var(--white);
+      transform: scale(1.08);
+    }
+
+    .carousel-btn:disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
+
+    .carousel-dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .carousel-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ccc;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      padding: 0;
+    }
+
+    .carousel-dot.active {
+      background: var(--green-dark);
+      transform: scale(1.3);
+    }
+
+    @media (max-width: 900px) {
+      .review-card { flex: 0 0 calc((100% - 24px) / 2); }
+    }
+
+    @media (max-width: 580px) {
+      .review-card { flex: 0 0 100%; }
     }
 
     /* ─── CONTACT ─────────────────────────────────────────── */
@@ -933,7 +998,6 @@
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <img src="images/logo.png" alt="Anderson Tree Service" class="hero-logo" />
     <h1>Professional Tree Care<br>You Can Trust</h1>
     <p class="hero-motto">"We love trees and we believe in people!"</p>
     <div class="hero-btns">
@@ -1107,46 +1171,55 @@
       <div class="divider centered"></div>
       <p class="section-subtitle">We let our work — and our customers — speak for themselves.</p>
     </div>
-    <div class="reviews-grid">
-      <div class="review-card">
-        <div class="stars">★★★★★</div>
-        <p class="review-text">"I recently hired Danny to take down a huge pine tree in my yard, and I couldn't be more impressed. They approached the job methodically, ensuring safety and precision throughout the process. He worked very hard, demonstrating his expertise with each cut. The entire experience was seamless, and his pricing was very reasonable compared to other quotes I received..."</p>
-        <span class="review-author">— Martin Family</span>
+    <div class="carousel-wrap">
+      <div class="carousel-track-outer">
+        <div class="carousel-track" id="reviewTrack">
+          <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <p class="review-text">"I recently hired Danny to take down a huge pine tree in my yard, and I couldn't be more impressed. They approached the job methodically, ensuring safety and precision throughout the process. He worked very hard, demonstrating his expertise with each cut. The entire experience was seamless, and his pricing was very reasonable compared to other quotes I received..."</p>
+            <span class="review-author">— Martin Family</span>
+          </div>
+          <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <p class="review-text">"Danny is our go-to guy for any and all tree removal for Clyde Companies (Geneva Rock Products). He is always quick to respond and is priced very well. We have a lot of older trees that are tricky to remove, but Danny is able to get them all done, no problem..."</p>
+            <span class="review-author">— Connor R., Clyde Companies / Geneva Rock Products</span>
+          </div>
+          <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <p class="review-text">"Super responsive and made my tree look beautiful! They did a real nice job cleaning him up, just like I wanted! Even went above and beyond and helped tidy up another tree."</p>
+            <span class="review-author">— Ian F.</span>
+          </div>
+          <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <p class="review-text">"We've used Anderson Tree Service twice now. A couple of years ago we needed some basic but more than we could easily do tree trimming on several trees by the road that were getting in the way of sidewalk pedestrians. Danny did an excellent job of trimming and shaping the trees."</p>
+            <span class="review-author">— Jennifer T.</span>
+          </div>
+          <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <p class="review-text">"We hired Danny and his team to trim back tree branches that were starting to grow over our roof and dropping sap all over our cars. Danny talked me through which branches were dropping sap and which ones we could keep to shape the tree. He did a great job trimming everything back while keeping the integrity of the tree."</p>
+            <span class="review-author">— Ariel A.</span>
+          </div>
+          <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <p class="review-text">"I reached out to Danny with Anderson Tree Service to have some large trees and all my roses pruned. He was able to give me a quote on the spot. His pricing is excellent and he worked around my schedule. All the trees look fantastic and I'm excited to see this year's blooms."</p>
+            <span class="review-author">— Kim G.</span>
+          </div>
+          <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <p class="review-text">"Anderson Tree Service was fast and thorough trimming a lot of our trees and shrubs! They were very affordable compared to most other companies. They answered my questions and concerns. They went above and beyond! I would strongly recommend this fine company!"</p>
+            <span class="review-author">— Laurel U.</span>
+          </div>
+          <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <p class="review-text">"Daniel did an amazing job trimming our trees, making sure nothing was hanging over the sidewalks, and cutting back a tree that was too close to the house. His pricing was very reasonable, and we'll definitely continue using him whenever we need tree work done!"</p>
+            <span class="review-author">— Samantha P.</span>
+          </div>
+        </div>
       </div>
-      <div class="review-card">
-        <div class="stars">★★★★★</div>
-        <p class="review-text">"Danny is our go-to guy for any and all tree removal for Clyde Companies (Geneva Rock Products). He is always quick to respond and is priced very well. We have a lot of older trees that are tricky to remove, but Danny is able to get them all done, no problem..."</p>
-        <span class="review-author">— Connor R., Clyde Companies / Geneva Rock Products</span>
-      </div>
-      <div class="review-card">
-        <div class="stars">★★★★★</div>
-        <p class="review-text">"Super responsive and made my tree look beautiful! They did a real nice job cleaning him up, just like I wanted! Even went above and beyond and helped tidy up another tree."</p>
-        <span class="review-author">— Ian F.</span>
-      </div>
-      <div class="review-card">
-        <div class="stars">★★★★★</div>
-        <p class="review-text">"We've used Anderson Tree Service twice now. A couple of years ago we needed some basic but more than we could easily do tree trimming on several trees by the road that were getting in the way of sidewalk pedestrians. Danny did an excellent job of trimming and shaping the trees."</p>
-        <span class="review-author">— Jennifer T.</span>
-      </div>
-      <div class="review-card">
-        <div class="stars">★★★★★</div>
-        <p class="review-text">"We hired Danny and his team to trim back tree branches that were starting to grow over our roof and dropping sap all over our cars. Danny talked me through which branches were dropping sap and which ones we could keep to shape the tree. He did a great job trimming everything back while keeping the integrity of the tree."</p>
-        <span class="review-author">— Ariel A.</span>
-      </div>
-      <div class="review-card">
-        <div class="stars">★★★★★</div>
-        <p class="review-text">"I reached out to Danny with Anderson Tree Service to have some large trees and all my roses pruned. He was able to give me a quote on the spot. His pricing is excellent and he worked around my schedule. All the trees look fantastic and I'm excited to see this year's blooms."</p>
-        <span class="review-author">— Kim G.</span>
-      </div>
-      <div class="review-card">
-        <div class="stars">★★★★★</div>
-        <p class="review-text">"Anderson Tree Service was fast and thorough trimming a lot of our trees and shrubs! They were very affordable compared to most other companies. They answered my questions and concerns. They went above and beyond! I would strongly recommend this fine company!"</p>
-        <span class="review-author">— Laurel U.</span>
-      </div>
-      <div class="review-card">
-        <div class="stars">★★★★★</div>
-        <p class="review-text">"Daniel did an amazing job trimming our trees, making sure nothing was hanging over the sidewalks, and cutting back a tree that was too close to the house. His pricing was very reasonable, and we'll definitely continue using him whenever we need tree work done!"</p>
-        <span class="review-author">— Samantha P.</span>
+      <div class="carousel-controls">
+        <button class="carousel-btn" id="prevBtn" aria-label="Previous reviews">&#8592;</button>
+        <div class="carousel-dots" id="carouselDots"></div>
+        <button class="carousel-btn" id="nextBtn" aria-label="Next reviews">&#8594;</button>
       </div>
     </div>
   </div>
@@ -1280,20 +1353,16 @@
 </footer>
 
 <script>
-  // Mobile nav toggle
+  // ── Mobile nav toggle ──
   const toggle = document.getElementById('navToggle');
   const links  = document.getElementById('navLinks');
   toggle.addEventListener('click', () => links.classList.toggle('open'));
   links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
-
-  // Close nav on outside click
   document.addEventListener('click', e => {
-    if (!toggle.contains(e.target) && !links.contains(e.target)) {
-      links.classList.remove('open');
-    }
+    if (!toggle.contains(e.target) && !links.contains(e.target)) links.classList.remove('open');
   });
 
-  // Animate elements on scroll
+  // ── Scroll animations ──
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -1303,12 +1372,76 @@
     });
   }, { threshold: 0.1 });
 
-  document.querySelectorAll('.service-card, .review-card, .gallery-item').forEach(el => {
+  document.querySelectorAll('.service-card, .gallery-item').forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(24px)';
     el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
     observer.observe(el);
   });
+
+  // ── Reviews carousel ──
+  const track     = document.getElementById('reviewTrack');
+  const prevBtn   = document.getElementById('prevBtn');
+  const nextBtn   = document.getElementById('nextBtn');
+  const dotsWrap  = document.getElementById('carouselDots');
+  const cards     = Array.from(track.children);
+
+  let current = 0;
+
+  function getVisible() {
+    const w = window.innerWidth;
+    if (w <= 580) return 1;
+    if (w <= 900) return 2;
+    return 3;
+  }
+
+  function totalSlides() {
+    return Math.ceil(cards.length / getVisible());
+  }
+
+  function buildDots() {
+    dotsWrap.innerHTML = '';
+    for (let i = 0; i < totalSlides(); i++) {
+      const d = document.createElement('button');
+      d.className = 'carousel-dot' + (i === current ? ' active' : '');
+      d.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+      d.addEventListener('click', () => goTo(i));
+      dotsWrap.appendChild(d);
+    }
+  }
+
+  function goTo(index) {
+    const vis    = getVisible();
+    const gap    = 24;
+    const cardW  = (track.parentElement.offsetWidth - gap * (vis - 1)) / vis;
+    const offset = index * vis * (cardW + gap);
+    current = Math.min(index, totalSlides() - 1);
+    track.style.transform = `translateX(-${offset}px)`;
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current >= totalSlides() - 1;
+    dotsWrap.querySelectorAll('.carousel-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === current);
+    });
+  }
+
+  prevBtn.addEventListener('click', () => goTo(current - 1));
+  nextBtn.addEventListener('click', () => goTo(current + 1));
+
+  // Swipe support
+  let touchStartX = 0;
+  track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend', e => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) diff > 0 ? goTo(current + 1) : goTo(current - 1);
+  });
+
+  function init() {
+    buildDots();
+    goTo(0);
+  }
+
+  init();
+  window.addEventListener('resize', init);
 </script>
 
 </body>
