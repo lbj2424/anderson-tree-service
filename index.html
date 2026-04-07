@@ -176,13 +176,19 @@
     }
 
     .hero-motto {
-      font-size: clamp(1rem, 2.2vw, 1.3rem);
-      color: var(--green-accent);
+      font-size: clamp(1.1rem, 2.4vw, 1.5rem);
+      color: var(--white);
       font-style: italic;
       margin-bottom: 36px;
-      font-weight: 300;
+      font-weight: 500;
       letter-spacing: 0.02em;
       animation: fadeDown 1s 0.3s ease both;
+      background: rgba(122,182,72,0.22);
+      border-left: 4px solid var(--green-accent);
+      padding: 12px 22px;
+      border-radius: 0 8px 8px 0;
+      display: inline-block;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.5);
     }
 
     .hero-btns {
@@ -404,55 +410,70 @@
     /* ─── SERVICES ────────────────────────────────────────── */
     #services { background: var(--white); }
 
-    .services-grid {
+    .services-list {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1.5px solid rgba(45,106,16,0.15);
+      border-radius: var(--radius);
+      overflow: hidden;
     }
 
-    .service-card {
+    .service-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 20px 26px;
+      border-bottom: 1.5px solid rgba(45,106,16,0.12);
+      border-right: 1.5px solid rgba(45,106,16,0.12);
       background: var(--cream);
-      border-radius: var(--radius);
-      padding: 32px 24px;
-      text-align: center;
-      border: 1px solid rgba(45,106,16,0.1);
-      transition: all 0.3s;
+      transition: background 0.22s, color 0.22s;
       cursor: default;
     }
 
-    .service-card:hover {
+    .service-item:hover {
       background: var(--green-dark);
-      border-color: var(--green-dark);
-      transform: translateY(-6px);
-      box-shadow: 0 12px 32px rgba(27,61,12,0.2);
     }
 
-    .service-icon {
-      width: 60px;
-      height: 60px;
+    .service-item:nth-child(3n) { border-right: none; }
+    .service-item:nth-last-child(-n+3) { border-bottom: none; }
+
+    .service-bullet {
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--green-mid), var(--green-accent));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 18px;
-      font-size: 1.5rem;
-      transition: all 0.3s;
+      background: var(--green-accent);
+      flex-shrink: 0;
+      transition: background 0.22s;
     }
 
-    .service-card:hover .service-icon {
-      background: linear-gradient(135deg, var(--green-accent), #a8df6a);
+    .service-item:hover .service-bullet {
+      background: #a8df6a;
     }
 
-    .service-card h3 {
-      font-size: 1rem;
-      font-family: 'Inter', sans-serif;
-      font-weight: 600;
+    .service-item span {
+      font-size: 0.98rem;
+      font-weight: 500;
       color: var(--green-dark);
-      transition: color 0.3s;
+      transition: color 0.22s;
     }
 
-    .service-card:hover h3 { color: var(--white); }
+    .service-item:hover span { color: var(--white); }
+
+    @media (max-width: 720px) {
+      .services-list { grid-template-columns: repeat(2, 1fr); }
+      .service-item:nth-child(3n) { border-right: 1.5px solid rgba(45,106,16,0.12); }
+      .service-item:nth-child(2n) { border-right: none; }
+      .service-item:nth-last-child(-n+3) { border-bottom: 1.5px solid rgba(45,106,16,0.12); }
+      .service-item:nth-last-child(-n+2) { border-bottom: none; }
+    }
+
+    @media (max-width: 480px) {
+      .services-list { grid-template-columns: 1fr; }
+      .service-item { border-right: none !important; }
+      .service-item:last-child { border-bottom: none !important; }
+      .service-item:nth-last-child(-n+2) { border-bottom: 1.5px solid rgba(45,106,16,0.12) !important; }
+    }
 
     /* ─── PAYMENT PLANS ───────────────────────────────────── */
     #payment {
@@ -1042,51 +1063,18 @@
       <div class="divider centered"></div>
       <p class="section-subtitle">Full-spectrum tree and landscape care for residential and commercial properties across Utah Valley.</p>
     </div>
-    <div class="services-grid">
-      <div class="service-card">
-        <div class="service-icon">🌲</div>
-        <h3>Tree Removal</h3>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">✂️</div>
-        <h3>Tree Trimming</h3>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🪵</div>
-        <h3>Firewood</h3>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🌿</div>
-        <h3>Bush Removal</h3>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🌱</div>
-        <h3>Bush Hedging &amp; Shaping</h3>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">⚙️</div>
-        <h3>Stump Grinding</h3>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🔬</div>
-        <h3>Tree Disease Diagnosis &amp; Treatment</h3>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🍎</div>
-        <h3>Fruit Tree Expert</h3>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🌳</div>
-        <h3>Tree Planting</h3>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">⚓</div>
-        <h3>Tree Anchoring</h3>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🏗️</div>
-        <h3>Lot Clearing</h3>
-      </div>
+    <div class="services-list">
+      <div class="service-item"><span class="service-bullet"></span><span>Tree Removal</span></div>
+      <div class="service-item"><span class="service-bullet"></span><span>Tree Trimming</span></div>
+      <div class="service-item"><span class="service-bullet"></span><span>Firewood</span></div>
+      <div class="service-item"><span class="service-bullet"></span><span>Bush Removal</span></div>
+      <div class="service-item"><span class="service-bullet"></span><span>Bush Hedging &amp; Shaping</span></div>
+      <div class="service-item"><span class="service-bullet"></span><span>Stump Grinding</span></div>
+      <div class="service-item"><span class="service-bullet"></span><span>Tree Disease Diagnosis &amp; Treatment</span></div>
+      <div class="service-item"><span class="service-bullet"></span><span>Fruit Tree Expert</span></div>
+      <div class="service-item"><span class="service-bullet"></span><span>Tree Planting</span></div>
+      <div class="service-item"><span class="service-bullet"></span><span>Tree Anchoring</span></div>
+      <div class="service-item"><span class="service-bullet"></span><span>Lot Clearing</span></div>
     </div>
   </div>
 </section>
@@ -1213,6 +1201,11 @@
             <div class="stars">★★★★★</div>
             <p class="review-text">"Daniel did an amazing job trimming our trees, making sure nothing was hanging over the sidewalks, and cutting back a tree that was too close to the house. His pricing was very reasonable, and we'll definitely continue using him whenever we need tree work done!"</p>
             <span class="review-author">— Samantha P.</span>
+          </div>
+          <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <p class="review-text">"He really came to the rescue with this out of control elm tree! We had the big elm trees cut down 6 years ago and the previous arborist didn't poison one of the trunks so it came back with vengeance. We tried cleaning it up ourselves but I think that made it even more upset so it grew even faster! He did such an amazing job getting it all chopped down and poisoning the stump so now we're able to get in that area and keep it tidied up a little more! Thank you again you were a life saver."</p>
+            <span class="review-author">— Kylee B.</span>
           </div>
         </div>
       </div>
@@ -1372,7 +1365,7 @@
     });
   }, { threshold: 0.1 });
 
-  document.querySelectorAll('.service-card, .gallery-item').forEach(el => {
+  document.querySelectorAll('.service-item, .gallery-item').forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(24px)';
     el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
