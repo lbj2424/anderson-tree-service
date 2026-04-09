@@ -627,6 +627,19 @@
     /* ─── BEFORE / AFTER SLIDER ──────────────────────────── */
     .ba-wrap {
       margin-bottom: 48px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .ba-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+    @media (max-width: 700px) {
+      .ba-grid { grid-template-columns: 1fr; }
     }
 
     .ba-label-row {
@@ -1290,20 +1303,35 @@
       <div class="divider centered"></div>
       <p class="section-subtitle">A look at some of the work we've done for our customers across Utah Valley.</p>
     </div>
-    <!-- Before / After Slider -->
+    <!-- Before / After Sliders -->
     <div class="ba-wrap">
       <div class="ba-label-row">
         <p class="section-label">Before &amp; After — Drag to Compare</p>
       </div>
-      <div class="ba-slider" id="baSlider">
-        <!-- AFTER image (sits underneath) -->
+      <div class="ba-slider">
         <img src="images/img7.png" alt="After tree trimming" class="ba-img" draggable="false" />
-        <!-- BEFORE image (clipped on top via clip-path) -->
-        <img src="images/img6.png" alt="Before tree trimming" class="ba-img ba-img-before" id="baBeforeImg" draggable="false" />
-        <!-- Divider line + handle -->
-        <div class="ba-divider" id="baDivider"></div>
-        <div class="ba-handle" id="baHandleBtn">&#8596;</div>
-        <!-- Labels -->
+        <img src="images/img6.png" alt="Before tree trimming" class="ba-img ba-img-before" draggable="false" />
+        <div class="ba-divider"></div>
+        <div class="ba-handle">&#8596;</div>
+        <span class="ba-tag ba-tag-before">Before</span>
+        <span class="ba-tag ba-tag-after">After</span>
+      </div>
+    </div>
+
+    <div class="ba-grid">
+      <div class="ba-slider">
+        <img src="images/after1.jpg" alt="After tree work" class="ba-img" draggable="false" />
+        <img src="images/before1.jpg" alt="Before tree work" class="ba-img ba-img-before" draggable="false" />
+        <div class="ba-divider"></div>
+        <div class="ba-handle">&#8596;</div>
+        <span class="ba-tag ba-tag-before">Before</span>
+        <span class="ba-tag ba-tag-after">After</span>
+      </div>
+      <div class="ba-slider">
+        <img src="images/after2.jpg" alt="After tree work" class="ba-img" draggable="false" />
+        <img src="images/before2.jpg" alt="Before tree work" class="ba-img ba-img-before" draggable="false" />
+        <div class="ba-divider"></div>
+        <div class="ba-handle">&#8596;</div>
         <span class="ba-tag ba-tag-before">Before</span>
         <span class="ba-tag ba-tag-after">After</span>
       </div>
@@ -1548,13 +1576,11 @@
   init();
   window.addEventListener('resize', init);
 
-  // ── Before / After Slider ──
-  (function () {
-    const slider    = document.getElementById('baSlider');
-    const beforeImg = document.getElementById('baBeforeImg');
-    const divider   = document.getElementById('baDivider');
-    const handle    = document.getElementById('baHandleBtn');
-    if (!slider) return;
+  // ── Before / After Sliders ──
+  document.querySelectorAll('.ba-slider').forEach(function(slider) {
+    const beforeImg = slider.querySelector('.ba-img-before');
+    const divider   = slider.querySelector('.ba-divider');
+    const handle    = slider.querySelector('.ba-handle');
 
     function setPos(x) {
       const rect = slider.getBoundingClientRect();
@@ -1574,7 +1600,7 @@
     slider.addEventListener('touchstart', e => { dragging = true; setPos(e.touches[0].clientX); }, { passive: true });
     window.addEventListener('touchmove',  e => { if (dragging) setPos(e.touches[0].clientX); }, { passive: true });
     window.addEventListener('touchend',   () => { dragging = false; });
-  })();
+  });
 </script>
 
 </body>
